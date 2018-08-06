@@ -1,7 +1,7 @@
 const Player = require('../models/player.model')
 
 // GET
-exports.player_details = function (req, res) {
+exports.player_details = function(req, res) {
   Player.findById(req.params.id, function (err, player) {
     if (err) return next(err)
     res.send(player)
@@ -9,7 +9,7 @@ exports.player_details = function (req, res) {
 }
 
 // POST
-exports.player_create = function (req, res) {
+exports.player_create = function(req, res) {
   const player = new Player(
     {
       name: req.body.name,
@@ -25,11 +25,21 @@ exports.player_create = function (req, res) {
 }
 
 // PATCH
-exports.player_update = function (req, res) {
+exports.player_update = function(req, res) {
     Player.findByIdAndUpdate(
-      req.params.id, {$set: req.body}, function (err, product) {
+      req.params.id, {$set: req.body}, function(err) {
         if (err) return next(err)
-        res.send('Player udpated.')
+        res.send('Player updated.')
+    }
+  )
+}
+
+// DELETE
+exports.player_delete = function (req, res) {
+  Player.findByIdAndRemove(
+    req.params.id, function(err) {
+      if (err) return next(err)
+      res.send('Player deleted successfully')
     }
   )
 }
