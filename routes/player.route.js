@@ -13,6 +13,7 @@ router.post('/create', player_controller.player_create)
 
 // PATCH
 router.patch('/:id/update', player_controller.player_update)
+router.patch('/update-elo', player_controller.update_elo)
 
 // DELETE
 router.delete('/:id/delete', player_controller.player_delete)
