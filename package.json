@@ -1,0 +1,17 @@
+{
+  "name": "reELOAPI",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "author": "Troy Chryssos",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js",
+    "lint": "eslint src --fix"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "mongoose": "^5.2.6"
+  }
+}
