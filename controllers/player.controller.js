@@ -1,13 +1,15 @@
 const Player = require('../models/player.model')
 
-//Simple version, without validation or sanitation
-exports.test = function (req, res) {
-    res.send('Greetings from the Test controller!')
-};
+// GET
+exports.player_details = function (req, res) {
+  Player.findById(req.params.id, function (err, player) {
+    if (err) return next(err)
+    res.send(player)
+  })
+}
 
+// POST
 exports.player_create = function (req, res) {
-  console.log('<<<<<<<<<<<<<< REQUEST >>>>>>>>>>>>>>: ', req)
-
   const player = new Player(
     {
       name: req.body.name,
@@ -20,4 +22,14 @@ exports.player_create = function (req, res) {
     }
     res.send('A new player joins the fight!')
   })
+}
+
+// PATCH
+exports.player_update = function (req, res) {
+    Player.findByIdAndUpdate(
+      req.params.id, {$set: req.body}, function (err, product) {
+        if (err) return next(err)
+        res.send('Player udpated.')
+    }
+  )
 }
