@@ -10,6 +10,13 @@ exports.player_details = function(req, res) {
   })
 }
 
+exports.players = function(req, res) {
+  Player.find({}, function (err, players) {
+    if (err) console.log(err)
+    res.send(players)
+  })
+}
+
 // POST
 exports.player_create = function(req, res) {
   const player = new Player(
@@ -49,7 +56,6 @@ exports.update_elo = function(req, res) {
     function(err, players) {
       const winner = players.filter(player => player.id === req.body.winner)[0]
       const loser = players.filter(player => player.id === req.body.loser)[0]
-      console.log(winner)
       const winnerPercent = elo.expected_score(winner.elo, loser.elo)
       const loserPercent = elo.expected_score(loser.elo, winner.elo)
       const winnerNewElo = elo.newElo(winner.elo, winnerPercent, 1)
