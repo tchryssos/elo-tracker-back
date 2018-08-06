@@ -1,5 +1,6 @@
 const Player = require('../models/player.model')
 const mongoose = require('mongoose')
+const lodash = require('lodash')
 const elo = require('../util/elo')
 
 // GET
@@ -13,7 +14,7 @@ exports.player_details = function(req, res) {
 exports.players = function(req, res) {
   Player.find({}, function (err, players) {
     if (err) console.log(err)
-    res.send(players)
+    res.send(lodash.reverse(lodash.sortBy(players, ['elo'])))
   })
 }
 
