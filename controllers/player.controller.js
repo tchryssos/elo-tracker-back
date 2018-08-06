@@ -6,7 +6,7 @@ const elo = require('../util/elo')
 // GET
 exports.player_details = function(req, res) {
   Player.findById(req.params.id, function (err, player) {
-    if (err) return next(err)
+    if (err) console.log(err)
     res.send(player)
   })
 }
@@ -14,7 +14,16 @@ exports.player_details = function(req, res) {
 exports.players = function(req, res) {
   Player.find({}, function (err, players) {
     if (err) console.log(err)
-    res.send(lodash.reverse(lodash.sortBy(players, ['elo'])))
+    const sortedPlayers = lodash.reverse(lodash.sortBy(players, ['elo']))
+    const rankedPlayers = sortedPlayers.map((player, i) => (
+      {
+        name: player.name,
+        id: player._id,
+        rank: i + 1,
+        elo: player.elo,
+      }
+    ))
+    res.send(rankedPlayers)
   })
 }
 
