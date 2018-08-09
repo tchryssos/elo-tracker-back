@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+require('dotenv').config()
 
 // CONFIG
 const app = express();
@@ -23,7 +24,7 @@ const player = require('./routes/player.route');
 app.use('/players', player);
 
 
-const port = 3030;
+const port = process.env.PORT || 3030;
 app.listen(port, () => {
     console.log('reELO API is up and running on port number ' + port);
 });
