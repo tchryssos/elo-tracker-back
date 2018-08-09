@@ -43,16 +43,6 @@ exports.player_create = function(req, res) {
   })
 }
 
-// PATCH
-exports.player_update = function(req, res) {
-    Player.findByIdAndUpdate(
-      req.params.id, {$set: req.body}, function(err) {
-        if (err) return next(err)
-        res.send('Player updated.')
-    }
-  )
-}
-
 exports.update_elo = function(req, res) {
   Player.find(
     {
@@ -75,6 +65,16 @@ exports.update_elo = function(req, res) {
       winner.save()
       loser.save()
       res.send(`ELO updated. ${winner.name}: ${winnerNewElo} ${loser.name}: ${loserNewElo}`)
+    }
+  )
+}
+
+// PATCH
+exports.player_update = function(req, res) {
+    Player.findByIdAndUpdate(
+      req.params.id, {$set: req.body}, function(err) {
+        if (err) return next(err)
+        res.send('Player updated.')
     }
   )
 }

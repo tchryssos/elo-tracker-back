@@ -11,9 +11,9 @@ router.get('/:id', player_controller.player_details)
 
 // POST
 router.post('/create', player_controller.player_create)
+router.post('/update-elo', player_controller.update_elo)
 
 // PATCH
-router.patch('/update-elo', player_controller.update_elo)
 router.patch('/:id/update', player_controller.player_update)
 
 // DELETE
