@@ -1,11 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const PRIVATE = require('./private')
 
 // CONFIG
 const app = express();
-let mongoDB = PRIVATE.mongo_uri;
+let mongoDB = process.env.MONGO_URI;
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 let db = mongoose.connection;
