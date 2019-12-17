@@ -68,7 +68,7 @@ exports.update_elo = function(req, res) {
         res.send(`ELO updated. ${winner.name}: ${winnerNewElo} ${loser.name}: ${loserNewElo}`)
       } else {
         res.status(400).send({
-          error: `Cannot find winner and/or loser \n Winner: ${winner} Loser: ${loser} Body: ${req.body}`
+          error: `Cannot find winner and/or loser. Winner: ${winner} Loser: ${loser}`
         })
       }
     }
