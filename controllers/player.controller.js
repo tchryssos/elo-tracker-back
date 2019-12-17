@@ -56,15 +56,19 @@ exports.update_elo = function(req, res) {
     function(err, players) {
       const winner = players.filter(player => player.id === req.body.winner)[0]
       const loser = players.filter(player => player.id === req.body.loser)[0]
-      const winnerPercent = elo.expected_score(winner.elo, loser.elo)
-      const loserPercent = elo.expected_score(loser.elo, winner.elo)
-      const winnerNewElo = elo.newElo(winner.elo, winnerPercent, 1)
-      const loserNewElo = elo.newElo(loser.elo, loserPercent, 0)
-      winner.elo = winnerNewElo
-      loser.elo = loserNewElo
-      winner.save()
-      loser.save()
-      res.send(`ELO updated. ${winner.name}: ${winnerNewElo} ${loser.name}: ${loserNewElo}`)
+      if (loser && winner) {
+        const winnerPercent = elo.expected_score(winner.elo, loser.elo)
+        const loserPercent = elo.expected_score(loser.elo, winner.elo)
+        const winnerNewElo = elo.newElo(winner.elo, winnerPercent, 1)
+        const loserNewElo = elo.newElo(loser.elo, loserPercent, 0)
+        winner.elo = winnerNewElo
+        loser.elo = loserNewElo
+        winner.save()
+        loser.save()
+        res.send(`ELO updated. ${winner.name}: ${winnerNewElo} ${loser.name}: ${loserNewElo}`)
+      } else {
+        res.send(`Cannot find winner or loser. Winner ${winner}. Loser: ${loser}`)
+      }
     }
   )
 }
