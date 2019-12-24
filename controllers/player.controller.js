@@ -20,7 +20,7 @@ exports.players = function(req, res) {
         name: player.name,
         id: player._id,
         rank: i + 1,
-        elo: Math.round(player.elo),
+        elo: Math.round(player.elo * 10) / 10, // This returns the elo score to 1 decimal
       }
     ))
     res.send(rankedPlayers)
